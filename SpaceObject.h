@@ -1,13 +1,6 @@
 ﻿#pragma once
 
-#include <cmath>
 #include <Matrix.h>
-
-using std::cos;
-using std::sin;
-using std::acos;
-using std::asin;
-using std::atan;
 
 class CSpaceObject {
 public:
@@ -52,10 +45,6 @@ private:
 	// other constants
 	CMatrix EarthRotationTransferMatrix;
 	CMatrix EarthYearTransferMatrix;
-	const CMatrix EclipseTransferMatrix = CMatrix( CVector( cos( Eclipse ), 0, -sin( Eclipse ) ),
-											CVector( 0, 1, 0 ),
-											CVector( sin( Eclipse ), 0, cos( Eclipse ) ) );
-	const CMatrix LatitudeTransferMatrix = CMatrix( CVector( 1, 0, 0 ),
-											CVector( 0, sin( latitude ), -cos( latitude ) ),
-											CVector( 0, cos( latitude ), sin( latitude ) ) );
+	CMatrix EclipseTransferMatrix;
+	CMatrix LatitudeTransferMatrix;
 };
