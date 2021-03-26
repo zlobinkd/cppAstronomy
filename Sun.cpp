@@ -1,4 +1,11 @@
 ﻿#include <Sun.h>
+#include <cmath>
+
+using std::cos;
+using std::sin;
+using std::acos;
+using std::asin;
+using std::atan;
 
 void CSun::update()
 {

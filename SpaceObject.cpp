@@ -1,6 +1,12 @@
 ﻿#include <SpaceObject.h>
 #include <ctime>
-//#include <iostream>
+#include <cmath>
+
+using std::cos;
+using std::sin;
+using std::acos;
+using std::asin;
+using std::atan;
 
 double CSpaceObject::getCurrentTime()
 {
@@ -32,6 +38,12 @@ void CSpaceObject::updateGeneral()
 CSpaceObject::CSpaceObject()
 {
 	// установить часы и положение по умолчанию
+	EclipseTransferMatrix = CMatrix( CVector( cos( Eclipse ), 0, -sin( Eclipse ) ),
+											CVector( 0, 1, 0 ),
+											CVector( sin( Eclipse ), 0, cos( Eclipse ) ) );
+	LatitudeTransferMatrix = CMatrix( CVector( 1, 0, 0 ),
+											CVector( 0, sin( latitude ), -cos( latitude ) ),
+											CVector( 0, cos( latitude ), sin( latitude ) ) );
 	t = getCurrentTime();
 	updateGeneral();
 }
@@ -53,7 +65,6 @@ CVector CSpaceObject::decartToSpherical( CVector decartCoordinates ) const
 	double x = decartCoordinates.value[0];
 	double y = decartCoordinates.value[1];
 	double z = decartCoordinates.value[2];
-	//std::cout << x << ' ' << y << ' ' << z << '\n';
 	double theta = asin( z );
 	double phi;
 	if( abs( z ) < 1 ) {
