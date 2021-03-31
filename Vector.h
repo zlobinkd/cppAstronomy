@@ -9,3 +9,6 @@ struct CVector {
 
 CVector operator*( double d, CVector v );
 CVector operator*( CVector v, double d );
+CVector operator+( CVector v1, CVector v2 );
+CVector operator-( CVector v1, CVector v2 );
+double abs( CVector v );
