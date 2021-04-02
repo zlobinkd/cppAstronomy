@@ -12,3 +12,5 @@ void transpose( CMatrix& matr );
 CVector operator*( CMatrix m, CVector v );
 CMatrix operator*( CMatrix m1, CMatrix m2 );
 CMatrix operator*( double d, CMatrix m );
+CMatrix operator*=( CMatrix& m1, CMatrix m2 );
+CMatrix operator*=( CMatrix& m, double d );

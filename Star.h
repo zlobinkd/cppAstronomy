@@ -1,17 +1,14 @@
 ﻿#pragma once
 
 #include <SpaceObject.h>
-#include <myTime.h>
 
-class CPlanet : public CSpaceObject {
+class CStar : public CSpaceObject {
 public:
+	CStar();
 	CVector findAzimutCoordinates() const;
 	CVector findEqCoordinates() const;
 	CVector findSolarCoordinates() const;
 protected:
 	void update();
-	CTime confrontation;
-	double planetYear;
-	double orbitRadius;
-	CVector solarCoordinates;
+	CVector eqCoordinates;
 };
