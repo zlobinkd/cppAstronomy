@@ -1,4 +1,7 @@
 ﻿#include <Vector.h>
+#include <cmath>
+
+using std::pow;
 
 CVector::CVector()
 {
@@ -39,4 +42,34 @@ CVector operator*( CVector v, double d )
 		v0.value[i] = v.value[i] * d;
 	}
 	return v0;
+}
+
+CVector operator+( CVector v1, CVector v2 )
+{
+	CVector v0 = CVector();
+	int i = 0;
+	for( ; i < 3; ++i ) {
+		v0.value[i] = v1.value[i] + v2.value[i];
+	}
+	return v0;
+}
+
+CVector operator-( CVector v1, CVector v2 )
+{
+	CVector v0 = CVector();
+	int i = 0;
+	for( ; i < 3; ++i ) {
+		v0.value[i] = v1.value[i] - v2.value[i];
+	}
+	return v0;
+}
+
+double abs( CVector v )
+{
+	double s = 0;
+	int i = 0;
+	for( ; i < 3; ++i ) {
+		s += v.value[i] * v.value[i];
+	}
+	return pow( s, 0.5 );
 }
