@@ -5,10 +5,9 @@
 class CSun : public CSpaceObject {
 public:
 	CSun();
-	CVector findAzimutCoordinates();
-	CVector findEqCoordinates();
-	CVector findSolarCoordinates();
-	void changeTime( double step );
+	CVector findAzimutCoordinates() const;
+	CVector findEqCoordinates() const;
+	CVector findSolarCoordinates() const;
 private:
 	void update();
 	CVector SolarCoordinates;

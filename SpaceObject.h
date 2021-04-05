@@ -5,10 +5,10 @@
 class CSpaceObject {
 public:
 	CSpaceObject();
-	virtual CVector findAzimutCoordinates() = 0;
-	virtual CVector findEqCoordinates() = 0;
-	virtual CVector findSolarCoordinates() = 0;
-	virtual void changeTime( double step ) = 0;
+	virtual CVector findAzimutCoordinates() const = 0;
+	virtual CVector findEqCoordinates() const = 0;
+	virtual CVector findSolarCoordinates() const = 0;
+	void changeTime( double step );
 
 protected:
 	// anywhere
@@ -23,19 +23,16 @@ protected:
 	double timeZone = 3;
 	double t;
 
-	// planets
-	const double VenusYear = 224.7 * EarthRotationPeriod;
-	const double JupyterYear = 4332.6 * EarthRotationPeriod;
-	const double SaturnYear = 10759 * EarthRotationPeriod;
-	const double MarsYear = 686.98 * EarthRotationPeriod;
-
 	// transforms
 	CVector solarToAzimut( CVector decartCoordinates ) const;
 	CVector azimutToSolar( CVector decartCoordinates ) const;
 	CVector eqToAzimut( CVector hourCoordinates ) const;
 	CVector azimutToEq( CVector decartCoordinates ) const;
+	CVector eqToSolar( CVector hourCoordinates ) const;
+	CVector solarToEq( CVector decartCoordinates ) const;
 	double getCurrentTime();
 	void updateGeneral();
+	virtual void update() = 0;
 
 private:
 	// other transforms
@@ -43,8 +40,8 @@ private:
 	CVector decartToSpherical( CVector decartCoordinates ) const;
 
 	// other constants
-	CMatrix EarthRotationTransferMatrix;
-	CMatrix EarthYearTransferMatrix;
-	CMatrix EclipseTransferMatrix;
-	CMatrix LatitudeTransferMatrix;
+	CMatrix EarthRotationTransformationMatrix;
+	CMatrix EarthYearTransformationMatrix;
+	CMatrix EclipseTransformationMatrix;
+	CMatrix LatitudeTransformationMatrix;
 };

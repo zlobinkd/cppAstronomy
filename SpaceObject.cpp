@@ -25,25 +25,25 @@ void CSpaceObject::updateGeneral()
 {
 	double cw = cos( 2 * Pi * t / EarthRotationPeriod );
 	double sw = sin( 2 * Pi * t / EarthRotationPeriod );
-	EarthRotationTransferMatrix = CMatrix( CVector( -sw, -cw, 0 ),
-											CVector( cw, -sw, 0 ),
-											CVector( 0, 0, 1 ) );
+	EarthRotationTransformationMatrix = CMatrix( CVector( -sw, -cw, 0 ),
+										CVector( cw, -sw, 0 ),
+										CVector( 0, 0, 1 ) );
 	double cv = cos( 2 * Pi * t / EarthYear );
 	double sv = sin( 2 * Pi * t / EarthYear );
-	EarthYearTransferMatrix = CMatrix( CVector( cv, -sv, 0 ),
-											CVector( sv, cv, 0 ),
-											CVector( 0, 0, 1 ) );
+	EarthYearTransformationMatrix = CMatrix( CVector( cv, -sv, 0 ),
+									CVector( sv, cv, 0 ),
+									CVector( 0, 0, 1 ) );
 }
 
 CSpaceObject::CSpaceObject()
 {
 	// установить часы и положение по умолчанию
-	EclipseTransferMatrix = CMatrix( CVector( cos( Eclipse ), 0, -sin( Eclipse ) ),
-											CVector( 0, 1, 0 ),
-											CVector( sin( Eclipse ), 0, cos( Eclipse ) ) );
-	LatitudeTransferMatrix = CMatrix( CVector( 1, 0, 0 ),
-											CVector( 0, sin( latitude ), -cos( latitude ) ),
-											CVector( 0, cos( latitude ), sin( latitude ) ) );
+	EclipseTransformationMatrix = CMatrix( CVector( cos( Eclipse ), 0, -sin( Eclipse ) ),
+									CVector( 0, 1, 0 ),
+									CVector( sin( Eclipse ), 0, cos( Eclipse ) ) );
+	LatitudeTransformationMatrix = CMatrix( CVector( 1, 0, 0 ),
+									CVector( 0, sin( latitude ), -cos( latitude ) ),
+									CVector( 0, cos( latitude ), sin( latitude ) ) );
 	t = getCurrentTime();
 	updateGeneral();
 }
@@ -85,40 +85,54 @@ CVector CSpaceObject::decartToSpherical( CVector decartCoordinates ) const
 
 CVector CSpaceObject::solarToAzimut( CVector decartCoordinates ) const
 {
-	return decartToSpherical(
-		LatitudeTransferMatrix * (
-		EarthRotationTransferMatrix * (
-			EarthYearTransferMatrix * (
-				EclipseTransferMatrix * decartCoordinates
-				)
-			)
-		)
-	);
+	return decartToSpherical( LatitudeTransformationMatrix * EarthRotationTransformationMatrix * EarthYearTransformationMatrix * EclipseTransformationMatrix * decartCoordinates );
 }
 
 CVector CSpaceObject::azimutToSolar( CVector decartCoordinates ) const
 {
-	CMatrix TransferMatrix = LatitudeTransferMatrix * (
-		EarthRotationTransferMatrix * (
-		EarthYearTransferMatrix * EclipseTransferMatrix
-		)
-	);
-	transpose( TransferMatrix );
-	return TransferMatrix * sphericalToDecart( decartCoordinates );
+	CMatrix TransformationMatrix = LatitudeTransformationMatrix * EarthRotationTransformationMatrix * EarthYearTransformationMatrix * EclipseTransformationMatrix;
+	transpose( TransformationMatrix );
+	return TransformationMatrix * sphericalToDecart( decartCoordinates );
 }
 
 CVector CSpaceObject::eqToAzimut( CVector hourCoordinates ) const
 {
 	hourCoordinates.value[0] *= -15;
 	CVector decartCoordinates = sphericalToDecart( hourCoordinates );
-	CMatrix transferMatrix = EclipseTransferMatrix;
-	transpose( transferMatrix );
-	return solarToAzimut( transferMatrix * decartCoordinates );
+	CMatrix transformationMatrix = EclipseTransformationMatrix;
+	transpose( transformationMatrix );
+	return solarToAzimut( transformationMatrix * decartCoordinates );
 }
 
 CVector CSpaceObject::azimutToEq( CVector decartCoordinates ) const
 {
-	CVector r = EclipseTransferMatrix * azimutToSolar( decartCoordinates );
+	CVector r = EclipseTransformationMatrix * azimutToSolar( decartCoordinates );
+	CVector angles = decartToSpherical( r );
+	angles.value[0] /= -15;
+	if( angles.value[0] >= 24 || angles.value[0] < 0 ) {
+		angles.value[0] = angles.value[0] + 24 * round( ( 12 - angles.value[0] ) / 24 );
+	}
+	return angles;
+}
+
+void CSpaceObject::changeTime( double step )
+{
+	t += step;
+	update();
+}
+
+CVector CSpaceObject::eqToSolar( CVector hourCoordinates ) const
+{
+	hourCoordinates.value[0] *= -15;
+	CVector decartCoordinates = sphericalToDecart( hourCoordinates );
+	CMatrix transformationMatrix = EclipseTransformationMatrix;
+	transpose( transformationMatrix );
+	return transformationMatrix * decartCoordinates;
+}
+
+CVector CSpaceObject::solarToEq( CVector decartCoordinates ) const
+{
+	CVector r = EclipseTransformationMatrix * decartCoordinates;
 	CVector angles = decartToSpherical( r );
 	angles.value[0] /= -15;
 	if( angles.value[0] >= 24 || angles.value[0] < 0 ) {

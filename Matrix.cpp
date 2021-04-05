@@ -82,3 +82,31 @@ CMatrix operator*( double d, CMatrix m )
 	}
 	return m0;
 }
+
+CMatrix operator*=( CMatrix& m1, CMatrix m2 )
+{
+	CMatrix m = CMatrix();
+	int i = 0;
+	for( ; i < 3; ++i ) {
+		int j = 0;
+		for( ; j < 3; ++j ) {
+			int k = 0;
+			for( ; k < 3; ++k ) {
+				m.value[i][j] += m1.value[i][k] * m2.value[k][j];
+			}
+		}
+	}
+	return m;
+}
+
+CMatrix operator*=( CMatrix& m, double d )
+{
+	int i = 0;
+	for( ; i < 3; ++i ) {
+		int j = 0;
+		for( ; j < 3; ++j ) {
+			m.value[i][j] *= d;
+		}
+	}
+	return m;
+}

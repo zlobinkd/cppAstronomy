@@ -73,3 +73,30 @@ double abs( CVector v )
 	}
 	return pow( s, 0.5 );
 }
+
+CVector operator*=( CVector& v, double d )
+{
+	int i = 0;
+	for( ; i < 3; ++i ) {
+		v.value[i] *= d;
+	}
+	return v;
+}
+
+CVector operator-=( CVector& v1, CVector v2 )
+{
+	int i = 0;
+	for( ; i < 3; ++i ) {
+		v1.value[i] -= v2.value[i];
+	}
+	return v1;
+}
+
+CVector operator/=( CVector& v, double d )
+{
+	int i = 0;
+	for( ; i < 3; ++i ) {
+		v.value[i] /= d;
+	}
+	return v;
+}

@@ -16,27 +16,21 @@ void CPlanet::update()
 	double timeDiff = timeDifference( confrontation, tSun );
 	double phase = 2 * Pi * timeDiff * ( 1 / EarthYear - 1 / planetYear );
 	solarCoordinates = orbitRadius * CVector( cos( 2 * Pi * t / planetYear + phase ), sin( 2 * Pi * t / planetYear + phase ), 0 );
-	solarCoordinates = solarCoordinates - CVector( cos( 2 * Pi * t / EarthYear ), sin( 2 * Pi * t / EarthYear ), 0 );
-	solarCoordinates = solarCoordinates * (1 / abs( solarCoordinates ) );
+	solarCoordinates -= CVector( cos( 2 * Pi * t / EarthYear ), sin( 2 * Pi * t / EarthYear ), 0 );
+	solarCoordinates /= abs( solarCoordinates );
 }
 
-CVector CPlanet::findSolarCoordinates()
+CVector CPlanet::findSolarCoordinates() const
 {
 	return solarCoordinates;
 }
 
-CVector CPlanet::findAzimutCoordinates()
+CVector CPlanet::findAzimutCoordinates() const
 {
 	return solarToAzimut( solarCoordinates );
 }
 
-CVector CPlanet::findEqCoordinates()
+CVector CPlanet::findEqCoordinates() const
 {
-	return azimutToEq( solarToAzimut( solarCoordinates ) );
-}
-
-void CPlanet::changeTime( double step )
-{
-	t = t + step;
-	update();
+	return solarToEq( solarCoordinates );
 }

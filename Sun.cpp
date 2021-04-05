@@ -19,23 +19,17 @@ CSun::CSun()
 	update();
 }
 
-void CSun::changeTime( double step )
-{
-	t += step;
-	update();
-}
-
-CVector CSun::findAzimutCoordinates()
+CVector CSun::findAzimutCoordinates() const
 {
 	return solarToAzimut( SolarCoordinates );
 }
 
-CVector CSun::findEqCoordinates()
+CVector CSun::findEqCoordinates() const
 {
-	return azimutToEq( solarToAzimut( SolarCoordinates ) );
+	return solarToEq( SolarCoordinates );
 }
 
-CVector CSun::findSolarCoordinates()
+CVector CSun::findSolarCoordinates() const
 {
 	return SolarCoordinates;
 }
