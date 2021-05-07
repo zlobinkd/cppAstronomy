@@ -11,6 +11,13 @@ CStar::CStar()
 	update();
 }
 
+CStar::CStar( CVector _eqCoordinates )
+{
+	eqCoordinates = _eqCoordinates;
+	t = getCurrentTime();
+	update();
+}
+
 CVector CStar::findAzimutCoordinates() const
 {
 	return eqToAzimut( eqCoordinates );
