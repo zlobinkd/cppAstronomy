@@ -27,8 +27,7 @@ CVector::CVector( double v1, double v2, double v3 )
 CVector operator*( double d, CVector v )
 {
 	CVector v0 = CVector();
-	int i = 0;
-	for( ; i < 3; ++i ) {
+	for( int i = 0; i < 3; ++i ) {
 		v0.value[i] = v.value[i] * d;
 	}
 	return v0;
@@ -37,8 +36,7 @@ CVector operator*( double d, CVector v )
 CVector operator*( CVector v, double d )
 {
 	CVector v0 = CVector();
-	int i = 0;
-	for( ; i < 3; ++i ) {
+	for( int i = 0; i < 3; ++i ) {
 		v0.value[i] = v.value[i] * d;
 	}
 	return v0;
@@ -47,8 +45,7 @@ CVector operator*( CVector v, double d )
 CVector operator+( CVector v1, CVector v2 )
 {
 	CVector v0 = CVector();
-	int i = 0;
-	for( ; i < 3; ++i ) {
+	for( int i = 0; i < 3; ++i ) {
 		v0.value[i] = v1.value[i] + v2.value[i];
 	}
 	return v0;
@@ -57,8 +54,7 @@ CVector operator+( CVector v1, CVector v2 )
 CVector operator-( CVector v1, CVector v2 )
 {
 	CVector v0 = CVector();
-	int i = 0;
-	for( ; i < 3; ++i ) {
+	for( int i = 0; i < 3; ++i ) {
 		v0.value[i] = v1.value[i] - v2.value[i];
 	}
 	return v0;
@@ -67,8 +63,7 @@ CVector operator-( CVector v1, CVector v2 )
 double abs( CVector v )
 {
 	double s = 0;
-	int i = 0;
-	for( ; i < 3; ++i ) {
+	for( int i = 0; i < 3; ++i ) {
 		s += v.value[i] * v.value[i];
 	}
 	return pow( s, 0.5 );
@@ -76,8 +71,7 @@ double abs( CVector v )
 
 CVector operator*=( CVector& v, double d )
 {
-	int i = 0;
-	for( ; i < 3; ++i ) {
+	for( int i = 0; i < 3; ++i ) {
 		v.value[i] *= d;
 	}
 	return v;
@@ -85,8 +79,7 @@ CVector operator*=( CVector& v, double d )
 
 CVector operator-=( CVector& v1, CVector v2 )
 {
-	int i = 0;
-	for( ; i < 3; ++i ) {
+	for( int i = 0; i < 3; ++i ) {
 		v1.value[i] -= v2.value[i];
 	}
 	return v1;
@@ -94,8 +87,7 @@ CVector operator-=( CVector& v1, CVector v2 )
 
 CVector operator/=( CVector& v, double d )
 {
-	int i = 0;
-	for( ; i < 3; ++i ) {
+	for( int i = 0; i < 3; ++i ) {
 		v.value[i] /= d;
 	}
 	return v;

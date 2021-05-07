@@ -18,7 +18,7 @@ void CPlanet::update()
 	solarCoordinates = orbitRadius * CVector( cos( 2 * Pi * t / planetYear + phase ), sin( 2 * Pi * t / planetYear + phase ), 0 );
 	solarCoordinates -= CVector( cos( 2 * Pi * t / EarthYear ), sin( 2 * Pi * t / EarthYear ), 0 );
 	solarCoordinates /= abs( solarCoordinates );
-}
+ }
 
 CVector CPlanet::findSolarCoordinates() const
 {
