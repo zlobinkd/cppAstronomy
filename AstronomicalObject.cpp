@@ -105,7 +105,7 @@ CVector CAstronomicalObject::decartToSpherical(CVector decartCoordinates) const
 	return CVector(phi * 180 / m_pi, theta * 180 / m_pi, 0);
 }
 
-CVector CAstronomicalObject::solarToAzimut(CVector decartCoordinates) const
+CVector CAstronomicalObject::solarToAzimuth(CVector decartCoordinates) const
 {
 	return decartToSpherical(m_latitudeTransformationMatrix * 
 						m_earthRotationTransformationMatrix * 
@@ -113,7 +113,7 @@ CVector CAstronomicalObject::solarToAzimut(CVector decartCoordinates) const
 						m_eclipseTransformationMatrix * decartCoordinates);
 }
 
-CVector CAstronomicalObject::azimutToSolar(CVector decartCoordinates) const
+CVector CAstronomicalObject::azimuthToSolar(CVector decartCoordinates) const
 {
 	CMatrix transformationMatrix = m_latitudeTransformationMatrix * 
 								m_earthRotationTransformationMatrix * 
@@ -125,7 +125,7 @@ CVector CAstronomicalObject::azimutToSolar(CVector decartCoordinates) const
 	return transformationMatrix * sphericalToDecart(decartCoordinates);
 }
 
-CVector CAstronomicalObject::eqToAzimut(CVector hourCoordinates) const
+CVector CAstronomicalObject::eqToAzimuth(CVector hourCoordinates) const
 {
 	hourCoordinates.m_value[0] *= -15;
 	CVector decartCoordinates = sphericalToDecart(hourCoordinates);
@@ -133,12 +133,12 @@ CVector CAstronomicalObject::eqToAzimut(CVector hourCoordinates) const
 
 	// unitary inverse
 	transpose(transformationMatrix);
-	return solarToAzimut(transformationMatrix * decartCoordinates);
+	return solarToAzimuth(transformationMatrix * decartCoordinates);
 }
 
-CVector CAstronomicalObject::azimutToEq(CVector decartCoordinates) const
+CVector CAstronomicalObject::azimuthToEq(CVector decartCoordinates) const
 {
-	CVector r = m_eclipseTransformationMatrix * azimutToSolar(decartCoordinates);
+	CVector r = m_eclipseTransformationMatrix * azimuthToSolar(decartCoordinates);
 	CVector angles = decartToSpherical(r);
 	angles.m_value[0] /= -15;
 	if (angles.m_value[0] >= 24 || angles.m_value[0] < 0) {

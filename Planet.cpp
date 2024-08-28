@@ -54,9 +54,9 @@ CVector CPlanet::findSolarCoordinates() const
 	return m_solarCoordinates;
 }
 
-CVector CPlanet::findAzimutCoordinates() const
+CVector CPlanet::findAzimuthCoordinates() const
 {
-	return solarToAzimut(m_solarCoordinates);
+	return solarToAzimuth(m_solarCoordinates);
 }
 
 CVector CPlanet::findEqCoordinates() const

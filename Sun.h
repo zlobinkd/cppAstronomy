@@ -5,7 +5,7 @@
 class CSun : public CAstronomicalObject {
 public:
 	CSun();
-	virtual CVector findAzimutCoordinates() const override;
+	virtual CVector findAzimuthCoordinates() const override;
 	virtual CVector findEqCoordinates() const override;
 	virtual CVector findSolarCoordinates() const override;
 private:

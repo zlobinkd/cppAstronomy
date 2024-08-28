@@ -19,9 +19,9 @@ CSun::CSun()
 	update();
 }
 
-CVector CSun::findAzimutCoordinates() const
+CVector CSun::findAzimuthCoordinates() const
 {
-	return solarToAzimut(m_solarCoordinates);
+	return solarToAzimuth(m_solarCoordinates);
 }
 
 CVector CSun::findEqCoordinates() const

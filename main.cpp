@@ -143,14 +143,14 @@ int main() {
 		std::cout << "Exception occured while creating Uranus: " << e.what() << std::endl;
 	}
 
-	// log the azimutal coordinates of all objects
+	// log the azimuthal coordinates of all objects
 	for (auto pair : astronomicalObjects) {
 		std::string name = pair.first;
 		CAstronomicalObject* p_spaceObject = pair.second;
 		CVector coordinates;
 
 		try {
-			coordinates = p_spaceObject->findAzimutCoordinates();
+			coordinates = p_spaceObject->findAzimuthCoordinates();
 		}
 		catch (const std::exception& e) {
 			std::cout << "Exception occured while getting coordinates of " << name << ": " << e.what() << std::endl;

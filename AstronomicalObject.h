@@ -5,7 +5,7 @@
 class CAstronomicalObject {
 public:
 	CAstronomicalObject();
-	virtual CVector findAzimutCoordinates() const = 0;
+	virtual CVector findAzimuthCoordinates() const = 0;
 	virtual CVector findEqCoordinates() const = 0;
 	virtual CVector findSolarCoordinates() const = 0;
 	void changeTime(double step);
@@ -30,7 +30,7 @@ protected:
 	double m_t = 0.0;
 
 	// transforms
-	// azimut:		local azimut coordinates
+	// azimuth:		local azimuth coordinates
 	// 
 	// solar:		date-invariant XYZ-coordinates 
 	//				with the Earth as the origin 
@@ -38,10 +38,10 @@ protected:
 	//
 	// eq:			local equatorial coordinates
 	//				(date-variant)
-	CVector solarToAzimut(CVector decartCoordinates) const;
-	CVector azimutToSolar(CVector decartCoordinates) const;
-	CVector eqToAzimut(CVector hourCoordinates) const;
-	CVector azimutToEq(CVector decartCoordinates) const;
+	CVector solarToAzimuth(CVector decartCoordinates) const;
+	CVector azimuthToSolar(CVector decartCoordinates) const;
+	CVector eqToAzimuth(CVector hourCoordinates) const;
+	CVector azimuthToEq(CVector decartCoordinates) const;
 	CVector eqToSolar(CVector hourCoordinates) const;
 	CVector solarToEq(CVector decartCoordinates) const;
 	double getCurrentTime();

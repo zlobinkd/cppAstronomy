@@ -12,9 +12,9 @@ CStar::CStar(CVector eqCoordinates)
 	update();
 }
 
-CVector CStar::findAzimutCoordinates() const
+CVector CStar::findAzimuthCoordinates() const
 {
-	return eqToAzimut(m_eqCoordinates);
+	return eqToAzimuth(m_eqCoordinates);
 }
 
 CVector CStar::findEqCoordinates() const
