@@ -1,10 +1,12 @@
 ﻿#pragma once
 
+#include <array>
+
 struct CVector {
 	CVector();
-	CVector( double _value[3] );
+	CVector( std::array<double, 3> _value );
 	CVector( double v1, double v2, double v3 );
-	double value[3];
+	std::array<double, 3> m_value;
 };
 
 CVector operator*( double d, CVector v );

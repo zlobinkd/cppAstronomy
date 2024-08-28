@@ -1,11 +1,11 @@
 ﻿#pragma once
 
-#include <Vector.h>
+#include "Vector.h"
 
 struct CMatrix {
 	CMatrix();
 	CMatrix( CVector v1, CVector v2, CVector v3 );
-	double value[3][3];
+	std::array<std::array<double, 3>, 3> m_value;
 };
 
 void transpose( CMatrix& matr );

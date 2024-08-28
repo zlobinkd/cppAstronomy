@@ -1,14 +1,14 @@
 ﻿#pragma once
 
-#include <SpaceObject.h>
+#include "AstronomicalObject.h"
 
-class CSun : public CSpaceObject {
+class CSun : public CAstronomicalObject {
 public:
 	CSun();
-	CVector findAzimutCoordinates() const;
-	CVector findEqCoordinates() const;
-	CVector findSolarCoordinates() const;
+	virtual CVector findAzimutCoordinates() const override;
+	virtual CVector findEqCoordinates() const override;
+	virtual CVector findSolarCoordinates() const override;
 private:
-	void update();
-	CVector SolarCoordinates;
+	virtual void update() override;
+	CVector m_solarCoordinates;
 };

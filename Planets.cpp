@@ -1,4 +1,4 @@
-﻿#include <Planets.h>
+﻿#include "Planets.h"
 
 CMars::CMars()
 {
@@ -21,7 +21,7 @@ CSaturn::CSaturn()
 	confrontation.year = 2020;
 	confrontation.month = 5;
 	confrontation.day = 2;
-	confrontation.hour = 20;
+	confrontation.hour = 18;
 	confrontation.minute = 5;
 	update();
 }
@@ -46,7 +46,7 @@ CJupyter::CJupyter()
 	confrontation = CTime();
 	confrontation.year = 2020;
 	confrontation.month = 6;
-	confrontation.day = 13;
+	confrontation.day = 11;
 	confrontation.hour = 0;
 	confrontation.minute = 0;
 	update();

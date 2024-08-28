@@ -1,4 +1,4 @@
-﻿#include <Stars.h>
+﻿#include "Stars.h"
 
 CAldebaran::CAldebaran()
 {

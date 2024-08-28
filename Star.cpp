@@ -1,27 +1,28 @@
-﻿#include <Star.h>
+﻿#include "Star.h"
 
 void CStar::update()
 {
 	updateGeneral();
 }
 
-CStar::CStar()
+CStar::CStar(CVector eqCoordinates)
 {
-	t = getCurrentTime();
+	m_eqCoordinates = eqCoordinates;
+	m_t = getCurrentTime();
 	update();
 }
 
 CVector CStar::findAzimutCoordinates() const
 {
-	return eqToAzimut( eqCoordinates );
+	return eqToAzimut(m_eqCoordinates);
 }
 
 CVector CStar::findEqCoordinates() const
 {
-	return eqCoordinates;
+	return m_eqCoordinates;
 }
 
 CVector CStar::findSolarCoordinates() const
 {
-	return eqToSolar( eqCoordinates );
+	return eqToSolar(m_eqCoordinates);
 }

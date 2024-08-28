@@ -1,4 +1,4 @@
-﻿#include <Sun.h>
+﻿#include "Sun.h"
 #include <cmath>
 
 using std::cos;
@@ -10,26 +10,26 @@ using std::atan;
 void CSun::update()
 {
 	updateGeneral();
-	SolarCoordinates = CVector( -cos( 2 * Pi * t / EarthYear ), -sin( 2 * Pi * t / EarthYear ), 0 );
+	m_solarCoordinates = CVector(-cos(2 * m_pi * m_t / m_earthOrbitPeriod), -sin(2 * m_pi * m_t / m_earthOrbitPeriod), 0);
 }
 
 CSun::CSun()
 {
-	t = getCurrentTime();
+	m_t = getCurrentTime();
 	update();
 }
 
 CVector CSun::findAzimutCoordinates() const
 {
-	return solarToAzimut( SolarCoordinates );
+	return solarToAzimut(m_solarCoordinates);
 }
 
 CVector CSun::findEqCoordinates() const
 {
-	return solarToEq( SolarCoordinates );
+	return solarToEq(m_solarCoordinates);
 }
 
 CVector CSun::findSolarCoordinates() const
 {
-	return SolarCoordinates;
+	return m_solarCoordinates;
 }

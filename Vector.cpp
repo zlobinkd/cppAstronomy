@@ -1,102 +1,85 @@
-﻿#include <Vector.h>
+﻿#include "Vector.h"
 #include <cmath>
+#include <stdexcept>
 
 using std::pow;
 
 CVector::CVector()
 {
-	value[0] = 0;
-	value[1] = 0;
-	value[2] = 0;
+	m_value[0] = 0;
+	m_value[1] = 0;
+	m_value[2] = 0;
 }
 
-CVector::CVector( double _value[3] )
+CVector::CVector(std::array<double, 3> _value)
 {
-	value[0] = _value[0];
-	value[1] = _value[1];
-	value[2] = _value[2];
+	m_value[0] = _value[0];
+	m_value[1] = _value[1];
+	m_value[2] = _value[2];
 }
 
-CVector::CVector( double v1, double v2, double v3 )
+CVector::CVector(double v1, double v2, double v3)
 {
-	value[0] = v1;
-	value[1] = v2;
-	value[2] = v3;
+	m_value[0] = v1;
+	m_value[1] = v2;
+	m_value[2] = v3;
 }
 
-CVector operator*( double d, CVector v )
+CVector operator*(double d, CVector v)
 {
 	CVector v0 = CVector();
-	int i = 0;
-	for( ; i < 3; ++i ) {
-		v0.value[i] = v.value[i] * d;
+	for (int i = 0; i < 3; ++i) {
+		v0.m_value[i] = v.m_value[i] * d;
 	}
 	return v0;
 }
 
-CVector operator*( CVector v, double d )
+CVector operator*(CVector v, double d)
+{
+	return d * v;
+}
+
+CVector operator+(CVector v1, CVector v2)
 {
 	CVector v0 = CVector();
-	int i = 0;
-	for( ; i < 3; ++i ) {
-		v0.value[i] = v.value[i] * d;
+	for (int i = 0; i < 3; ++i) {
+		v0.m_value[i] = v1.m_value[i] + v2.m_value[i];
 	}
 	return v0;
 }
 
-CVector operator+( CVector v1, CVector v2 )
+CVector operator-(CVector v1, CVector v2)
 {
-	CVector v0 = CVector();
-	int i = 0;
-	for( ; i < 3; ++i ) {
-		v0.value[i] = v1.value[i] + v2.value[i];
-	}
-	return v0;
+	return v1 + (-1) * v2;
 }
 
-CVector operator-( CVector v1, CVector v2 )
-{
-	CVector v0 = CVector();
-	int i = 0;
-	for( ; i < 3; ++i ) {
-		v0.value[i] = v1.value[i] - v2.value[i];
-	}
-	return v0;
-}
-
-double abs( CVector v )
+double abs(CVector v)
 {
 	double s = 0;
-	int i = 0;
-	for( ; i < 3; ++i ) {
-		s += v.value[i] * v.value[i];
+	for (int i = 0; i < 3; ++i) {
+		s += pow(v.m_value[i], 2);
 	}
-	return pow( s, 0.5 );
+	return pow(s, 0.5);
 }
 
-CVector operator*=( CVector& v, double d )
+CVector operator*=(CVector& v, double d)
 {
-	int i = 0;
-	for( ; i < 3; ++i ) {
-		v.value[i] *= d;
-	}
+	v = d * v;
 	return v;
 }
 
-CVector operator-=( CVector& v1, CVector v2 )
+CVector operator-=(CVector& v1, CVector v2)
 {
-	int i = 0;
-	for( ; i < 3; ++i ) {
-		v1.value[i] -= v2.value[i];
-	}
+	v1 = v1 - v2;
 	return v1;
 }
 
-CVector operator/=( CVector& v, double d )
+CVector operator/=(CVector& v, double d)
 {
-	int i = 0;
-	for( ; i < 3; ++i ) {
-		v.value[i] /= d;
+	if (d == 0) {
+		throw new std::invalid_argument("CVector class encountered division by zero.");
 	}
+	
+	v = v * (1 / d);
 	return v;
 }

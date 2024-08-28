@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include <Star.h>
+#include "Star.h"
 
 class CAldebaran :public CStar {
 public:
